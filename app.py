@@ -17,7 +17,7 @@ while True:
             auth.set_access_token(token, token_secret)
             api = tweepy.API(auth)
             print('Auth success\n\n')
-            for _ in range(2):
+            for _ in range(1):
                 def get_var_value(filename="current.dat"):
                     with open(filename, "a+") as f:
                         f.seek(0)
