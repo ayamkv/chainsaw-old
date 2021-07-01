@@ -8,4 +8,3 @@ for f in files:
     os.remove(f)
     
 time.sleep(2)
-exec(open("app.py").read())
