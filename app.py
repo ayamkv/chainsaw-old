@@ -25,43 +25,45 @@ else:
 
 
 
-def get_var_value(filename="current.dat"):
-    with open(filename, "a+") as f:
-        f.seek(0)
-        val = int(f.read() or 0) + 3
-        f.seek(0)
-        f.truncate()
-        #if production , write the next value on dat else, write value - 1 (current)
-        if production == 'true':
-            f.write(str(val))
-        else:
-            f.write(str(val - 1))
-        
-        return val
-
-                #####################
-#TOTAL IMAGE
-out_of = '1640'
-#NUMBER IMAGE
-n_counter = get_var_value() 
-#CURRENT COUNTER
-current_counter = n_counter - 3
-#NEXT COUNTER
-next_counter = n_counter + 3
-#IMAGE PATH DOWNLOADED
-image_path = Path('./images/{}.png'.format(n_counter))
-#NUMBER?
-the = Path('./images/{}.png'.format(n_counter)).stem
-#PATH STRING FOR PRINT
-path_string = './images/' + the + '.png' 
-#TWITTER TEXT , TWEET
-tweet = (":: Frame {} out of {} from Chainsaw Man PV.\n\n::\n#ChainsawMan #ChainsawManFrames #CSM{}\n".format(the, out_of, the))
-#DROPBOX DOWNLOAD
-# file = f"{n_counter}.png"
-file_from = f"/csm/images/{n_counter}.png"
-file_to = f'images/{n_counter}.png'
-
 def job():
+    
+    def get_var_value(filename="current.dat"):
+        with open(filename, "a+") as f:
+            f.seek(0)
+            val = int(f.read() or 0) + 3
+            f.seek(0)
+            f.truncate()
+            #if production , write the next value on dat else, write value - 1 (current)
+            if production == 'true':
+                f.write(str(val))
+            else:
+                f.write(str(val - 1))
+            
+            return val
+
+    #####################
+
+    #TOTAL IMAGE
+    out_of = '1640'
+    #NUMBER IMAGE
+    n_counter = get_var_value() 
+    #CURRENT COUNTER
+    current_counter = n_counter - 3
+    #NEXT COUNTER
+    next_counter = n_counter + 3
+    #IMAGE PATH DOWNLOADED
+    image_path = Path('./images/{}.png'.format(n_counter))
+    #NUMBER?
+    the = Path('./images/{}.png'.format(n_counter)).stem
+    #PATH STRING FOR PRINT
+    path_string = './images/' + the + '.png' 
+    #TWITTER TEXT , TWEET
+    tweet = (":: Frame {} out of {} from Chainsaw Man PV.\n\n::\n#ChainsawMan #ChainsawManFrames #CSM{}\n".format(the, out_of, the))
+    #DROPBOX DOWNLOAD
+    # file = f"{n_counter}.png"
+    file_from = f"/csm/images/{n_counter}.png"
+    file_to = f'images/{n_counter}.png'
+
     print('[=JOB STARTED=]')
     print('\n[::] now on frame : ' + the)
     print(file_from)
@@ -142,8 +144,8 @@ def delete_files():
     for f in pngfiles:
         os.remove(f)
     sleep(2)
-    for f in jpgfiles:
-        os.remove(f)
+    for j in jpgfiles:
+        os.remove(j)
      
     print(' All Png and Jpg .Deleted. ')
 
@@ -152,9 +154,10 @@ print('---- Running Job ----- ')
 
 def looping():
     print('-- Looping range 3 / im inside looping -- ')
-    for _ in range(3):
+    for _ in range(5):
+        # get_var_value() 
+        sleep(2)
         print ("Authenticated as: %s" % api.me().screen_name) 
-        get_var_value() 
         job()
         
 
