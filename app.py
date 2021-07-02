@@ -34,11 +34,10 @@ def job():
             f.seek(0)
             f.truncate()
             #if production , write the next value on dat else, write value - 1 (current)
-            if production == 'true':
-                f.write(str(val))
-            else:
-                f.write(str(val - 1))
-            
+            # if production == 'true':
+            f.write(str(val))
+            # else:
+            #     f.write(str(val - 1))
             return val
 
     #####################
@@ -173,6 +172,6 @@ while True:
     print(3 * '\n')
     print(10 * '-')
     print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin\n')
-    sleep(19800) # 5.5 Hours
+    sleep(25200) # 5.5 Hours
     print(20 * '=')
     print('\n[[]=[]] Im Awake!!!! Lets get started :D \n')
