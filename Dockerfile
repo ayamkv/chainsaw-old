@@ -1,7 +1,9 @@
 FROM       python
-RUN        pip install -r /path/to/requirements.txt
-COPY       . /app
-WORKDIR    /
+RUN        mkdir -p /user/src/app
+WORKDIR    /user/src/app
+COPY       requirements.txt ./
+COPY       . .
+RUN        pip install -r requirements.txt
 RUN        echo "installing stuff?"
-ENV        SHELL=/bin/bash
-CMD        ["python"]
+# ENV        SHELL=/bin/bash
+CMD        ["python, app.py"]
