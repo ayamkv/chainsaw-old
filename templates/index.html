@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<title>Twitter Status</title>
+
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="header">
+        <h1>Twitter Status</h1>
+        <p>Image : #{{ val }}</p>
+        <p>Latest Tweet : </p>
+        <a href="{{ link }}">Link</a>
+        <br>
+        <p class='tL' >{{ tweetLast }}</p>
+        <p>Im alive!</p>
+    </div> 
+</div>
+
+{% endblock %}

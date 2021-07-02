@@ -2,12 +2,15 @@ from pathlib import Path
 from PIL import Image
 from keys import *
 from dropbox import Dropbox
+from keep_alive import keep_alive
 import dropbox
 import numpy as np
 import os, tweepy, time, math, sys, io, glob
 
-
+keep_alive()
 sleep = time.sleep
+file_from_v = 'current.dat'
+file_to_v = '/csm/current.dat'
 
 if production == 'true':
     print(status_project + '\n ')
@@ -27,25 +30,71 @@ else:
 
 def job():
     
-    def get_var_value(filename="current.dat"):
+    file_from_v = 'current.dat'
+    file_to_v = '/csm/current.dat'
+
+    def upload_file(file_from_v, file_to_v):
+        f = open(file_from_v, 'rb')
+        # percentage = f.content
+        # percentage = percentage.decode('utf-8')
+        # print(percentage)
+        dbx.files_upload(f.read(), file_to_v, mode=dropbox.files.WriteMode.overwrite)
+
+    def download_file(file_from_v, file_to_v):
+        dbx.files_download_to_file(file_to_v, file_from_v)
+
+        
+
+
+    def get_var_value(filename=file_from_v):
+        download_file(file_to_v, file_from_v)
+        print('wait for sync')
+        time.sleep(3)
+        print('dat Downloaded')
         with open(filename, "a+") as f:
             f.seek(0)
-            val = int(f.read() or 0) + 3
+            val = int(f.read() or 0) + 1
             f.seek(0)
             f.truncate()
             #if production , write the next value on dat else, write value - 1 (current)
             # if production == 'true':
             f.write(str(val))
+            print('dat write : %s' % val)
             # else:
             #     f.write(str(val - 1))
             return val
+
+    def value_read(filename=file_from_v):
+        # This opens a handle to your file, in 'r' read mode
+        fh = open('current.dat', 'r')
+        fh.seek(0)
+        val = int(fh.read())
+        fh.seek(0)
+        return val
+            
+    def print_acc():
+        account = dbx.users_get_current_account()
+        print('[dbx] ' + account.name.given_name, account.name.surname)
+        print('[dbx] ' + account.email)
+        print( 2 * '\n')
+
+
+    def value_func():
+        get_var_value()
+        upload_file(file_from_v,file_to_v)
+        print('dat Uploaded\n')
+        print( 5 * '_' )
+        
+    
+    print_acc() 
+    value_func()
 
     #####################
 
     #TOTAL IMAGE
     out_of = '1640'
     #NUMBER IMAGE
-    n_counter = get_var_value() 
+    n_counter = value_read()
     #CURRENT COUNTER
     current_counter = n_counter - 3
     #NEXT COUNTER
@@ -63,7 +112,7 @@ def job():
     file_from = f"/csm/images/{n_counter}.png"
     file_to = f'images/{n_counter}.png'
 
-    print('[=JOB STARTED=]')
+    print(10 * '_' + '[=JOB STARTED=]' + 10 * '_' )
     print('\n[::] now on frame : ' + the)
     print(file_from)
     print('\nDownloading FIles................')   
@@ -114,7 +163,7 @@ def job():
     
 
     if production == 'true':
-        print('\n\n_________Posting__Tweet________________\n')
+        print('\n\n___Posting__Tweet____\n')
         print('\n[::] Youre now on frame : ' + the)
         print('[<<] Frame Before : {}'.format(current_counter))
         print('This is the image path : ' + path_string)
@@ -139,12 +188,15 @@ def job():
 def delete_files():
     sleep(3)
     pngfiles = glob.glob('./images/*.png')
-    jpgfiles = glob.glob('./images/*.jpg')
+    # jpgfiles = glob.glob('./images/*.jpg')
     for f in pngfiles:
-        os.remove(f)
+        # os.remove(f)
+        print(f)
+        os.system('rm images/*.png')
+        os.system('rm images/*.jpg')
     sleep(2)
-    for j in jpgfiles:
-        os.remove(j)
+    # for j in jpgfiles:
+    #     os.remove(j)
      
     print(' All Png and Jpg .Deleted. ')
 
@@ -152,7 +204,7 @@ def delete_files():
 print('---- Running Job ----- ')
 
 def looping():
-    print('-- Looping range 3 / im inside looping -- ')
+    print('-- Looping range 5 / im inside looping -- ')
     for _ in range(5):
         # get_var_value() 
         sleep(2)
@@ -172,6 +224,6 @@ while True:
     print(3 * '\n')
     print(10 * '-')
     print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin\n')
-    sleep(25200) # 5.5 Hours
+    sleep(25200) # 7 Hours
     print(20 * '=')
     print('\n[[]=[]] Im Awake!!!! Lets get started :D \n')
