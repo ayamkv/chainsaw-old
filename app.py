@@ -225,8 +225,8 @@ def everything():
 
 def sleepcd():
     for remaining in range(25200, 0, -1):
-        sys.stdout.write("\r")
-        sys.stdout.write("{:2d} seconds remaining.".format(remaining))
+        print("\r")
+        print("Sleep {:2d} seconds remaining.".format(remaining), end="\r", flush=True)
         sys.stdout.flush()
         time.sleep(1)
 
