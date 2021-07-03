@@ -2,12 +2,10 @@ from pathlib import Path
 from PIL import Image
 from keys import *
 from dropbox import Dropbox
-from keep_alive import keep_alive
 import dropbox
 import numpy as np
 import os, tweepy, time, math, sys, io, glob
 
-keep_alive()
 
 sleep = time.sleep
 file_from_v = 'current.dat'
@@ -54,7 +52,7 @@ def job():
         print('dat Downloaded')
         with open(filename, "a+") as f:
             f.seek(0)
-            val = int(f.read() or 0) + 1
+            val = int(f.read() or 0) + 2
             f.seek(0)
             f.truncate()
             #if production , write the next value on dat else, write value - 1 (current)
@@ -97,9 +95,9 @@ def job():
     #NUMBER IMAGE
     n_counter = value_read()
     #CURRENT COUNTER
-    current_counter = n_counter - 3
+    current_counter = n_counter - 1
     #NEXT COUNTER
-    next_counter = n_counter + 3
+    next_counter = n_counter + 1
     #IMAGE PATH DOWNLOADED
     image_path = Path('./images/{}.png'.format(n_counter))
     #NUMBER?
@@ -107,7 +105,7 @@ def job():
     #PATH STRING FOR PRINT
     path_string = './images/' + the + '.png' 
     #TWITTER TEXT , TWEET
-    tweet = (":: Frame {} out of {} from Chainsaw Man PV.\n\n::\n#ChainsawMan #ChainsawManFrames #CSM{}\n".format(the, out_of, the))
+    tweet = (":: Frame {} out of {} from Chainsaw Man PV.\n\n#ChainsawMan #ChainsawManFrames #CSM{}\n".format(the, out_of, the))
     #DROPBOX DOWNLOAD
     # file = f"{n_counter}.png"
     file_from = f"/csm/images/{n_counter}.png"
@@ -179,7 +177,7 @@ def job():
         print('[<>] Image Banner Updated')
         # os.startfile(image_cpath)
         
-        time.sleep(6)
+        time.sleep(3)
         
     else:
         print('\nNot tweeting Because ' + status_project)
@@ -212,8 +210,7 @@ def looping():
         print ("Authenticated as: %s" % api.me().screen_name) 
         job()
         
-
-while True:
+def everything():
     print('im running...')
     print('im inside while true\n')
     sleep(1)
@@ -224,7 +221,21 @@ while True:
     delete_files() 
     print(3 * '\n')
     print(10 * '-')
-    print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin\n')
-    sleep(25200) # 7 Hours
+
+
+def sleepcd():
+    for remaining in range(25200, 0, -1):
+        sys.stdout.write("\r")
+        sys.stdout.write("{:2d} seconds remaining.".format(remaining))
+        sys.stdout.flush()
+        time.sleep(1)
+
+
+while True:
+    everything()
+    print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
+    sleepcd()
+    print('\n')
+    # 7 Hours
     print(20 * '=')
     print('\n[[]=[]] Im Awake!!!! Lets get started :D \n')

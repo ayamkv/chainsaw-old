@@ -14,11 +14,26 @@ screen_name = ("%s" % api.me().screen_name)
 
 
 last_tweet = next((tw for tw in tweetL if tw.in_reply_to_screen_name is None
-                   or tw.in_reply_to_screen_name == screen_name), None)
+                or tw.in_reply_to_screen_name == screen_name), None)
 
 
 tL = last_tweet.full_text
 
-# print(last_tweet.full_text)
-*texts, tLink = tL.split()
+print(last_tweet.full_text)
+tick, frame, fnumber, *texts, tLink = tL.split()
+
+def get_last_tweet_id(api):
+    tweet = api.user_timeline(
+        id = screen_name, 
+        count = 1, 
+        tweet_mode="extended", 
+        include_entities=True 
+        )[0]
+    print(tweet.id)
+    return tweet.id
+    
+
+id_tweet = get_last_tweet_id(api)
+print(fnumber)
+
 
