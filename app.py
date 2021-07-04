@@ -4,10 +4,11 @@ from keys import *
 from dropbox import Dropbox
 import dropbox
 import numpy as np
+from datetime import datetime, time, timedelta
+from time import sleep
 import os, tweepy, time, math, sys, io, glob
 
 
-sleep = time.sleep
 file_from_v = 'current.dat'
 file_to_v = '/csm/current.dat'
 
@@ -169,7 +170,7 @@ def job():
         print('tweeting...')
         api.update_with_media(image_path, tweet)
         # os.startfile(image_path)
-        print('\n[<>] its tweeted')
+        print('\n[<>] Its Tweeted! YAY')
         print('This is your tweet :\n\n' + tweet) 
         print('\n[>>] Next Frame : {}'.format(next_counter))
         time.sleep(1)
@@ -223,18 +224,44 @@ def everything():
     print(10 * '-')
 
 
-def sleepcd():
-    for remaining in range(25200, 0, -1):
-        print("\r")
-        print("Sleep {:2d} seconds remaining.".format(remaining), end="\r", flush=True)
-        sys.stdout.flush()
-        time.sleep(1)
+def dateDiffInSeconds(date1, date2):
+      timedelta = date2 - date1
+      return timedelta.days * 24 * 3600 + timedelta.seconds
 
+def daysHoursMinutesSecondsFromSeconds(seconds):
+	minutes, seconds = divmod(seconds, 60)
+	hours, minutes = divmod(minutes, 60)
+
+	return (hours, minutes, seconds)
+
+current_date = datetime.now()
+hours = 7
+hours_added = timedelta(hours = hours)
+future_date = str(current_date + hours_added)
+ftur = current_date + hours_added
+fturs = ftur.strftime("%H:%M:%S || %d %B, %Y")
+print('Today : ' , current_date.strftime("%d %B, %Y '-' %H:%M:%S"))
+req = datetime.strptime(future_date, '%Y-%m-%d %H:%M:%S.%f')
+now = datetime.now()
+
+
+
+def sleepcd(now):
+    print('\n' + fturs)
+    while req>now:
+        cdp = " %d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
+        sleep(1)
+        now = datetime.now()
+        cds = str(cdp)
+        # print('\n ' + ftur.strftime, end="\r", flush=True)
+        print( '>  ' + cds, end="\r", flush=True)
+        sleep(15)
+        
 
 while True:
     everything()
     print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
-    sleepcd()
+    sleepcd(now)
     print('\n')
     # 7 Hours
     print(20 * '=')
