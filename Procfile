@@ -1,2 +1,1 @@
-worker: python app.py
-web: gunicorn --bind 0.0.0.0:${PORT} wsgi
+web: gunicorn -b :$PORT app:app

@@ -4,9 +4,14 @@ from keys import *
 from dropbox import Dropbox
 import dropbox
 import numpy as np
+import jyserver.Flask as jsf
+from flask import jsonify, request
+from flask import Flask, render_template, url_for, redirect
+from threading import Thread
 from datetime import datetime, time, timedelta
 from time import sleep
-import os, tweepy, time, math, sys, io, glob
+from latestt import tL, tLink, id_tweet, screen_name, fnumber
+import os, tweepy, time, math, sys, io, glob, signal
 
 
 file_from_v = 'current.dat'
@@ -224,15 +229,16 @@ def everything():
     print(10 * '-')
 
 
+
 def dateDiffInSeconds(date1, date2):
-      timedelta = date2 - date1
-      return timedelta.days * 24 * 3600 + timedelta.seconds
+    timedelta = date2 - date1
+    return timedelta.days * 24 * 3600 + timedelta.seconds
 
 def daysHoursMinutesSecondsFromSeconds(seconds):
-	minutes, seconds = divmod(seconds, 60)
-	hours, minutes = divmod(minutes, 60)
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
 
-	return (hours, minutes, seconds)
+    return (hours, minutes, seconds)
 
 current_date = datetime.now()
 hours = 7
@@ -256,13 +262,57 @@ def sleepcd(now):
         # print('\n ' + ftur.strftime, end="\r", flush=True)
         print( '>  ' + cds, end="\r", flush=True)
         sleep(15)
-        
 
-while True:
-    everything()
-    print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
-    sleepcd(now)
-    print('\n')
-    # 7 Hours
-    print(20 * '=')
-    print('\n[[]=[]] Im Awake!!!! Lets get started :D \n')
+
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    redir = request.base_url + 'cd'
+    return redirect(redir, code=302)
+
+@app.route('/id')
+def tweet():
+    id = {'id':id_tweet}
+    return jsonify(id)
+@app.route('/cd')
+def sleepcdflask():
+    now = datetime.now()
+    cdp = "%d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
+    sleep(1)
+    now = datetime.now()
+    time = {'time':cdp}
+    # print('\n ' + ftur.strftime, end="\r", flush=True)
+    return jsonify(time)
+        
+def run():
+    PORT = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=PORT, debug=True)
+
+
+
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    flask_m = []
+    def keep_alive():
+        t = Thread(target=app.run)
+        flask_m.append(t)
+        t.start()
+        
+    for t in flask_m:
+        t.join()
+    while True:
+        everything()
+        print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
+        current_date = datetime.now()
+        keep_alive()
+        sleep(1)
+        sleepcd(now)
+        print('\n')
+        # 7 Hours
+        print(20 * '=')
+        print('\n[[]=[]] Im Awake!!!! Lets get started :D \n')
+
+    #time.sleep(3)

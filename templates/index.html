@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<title>Twitter Status</title>
+
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="header">
+        <h1>Twitter Status</h1>
+        <p>Next :</p>
+        <p class="cdwn" id='cdwn'></p>
+        <p>Image : #{{ val }}</p>
+        <p> </p>
+        
+        <br>
+        <div class="tweet">
+            <blockquote class="twitter-tweet tw-align-center" data-theme="dark" data-width="500" 
+            data-height="350"
+            data-chrome="transparent noborders "
+            ><a class="twt" href="https://twitter.com/{{ screen_name }}/status/{{ tweet_id }}"></a></blockquote>
+        </div>
+
+        <a href="{{ link }}">Link</a>
+        <br><br>
+        
+        <div class="timeline">
+            <p>Timeline :</p>
+            <a class="twitter-timeline"
+            href="https://twitter.com/{{ screen_name}}"
+            data-width="500"
+            data-height="500" 
+            data-theme="dark" 
+            data-chrome="transparent nofooter noborders noheader noscrollbar ">
+            </a>
+        </div>
+
+    </div> 
+
+</div>
+
+{% endblock %}

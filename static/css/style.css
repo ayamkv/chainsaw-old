@@ -1,0 +1,143 @@
+body {
+   background-color: #14171A;
+   color: #d9d9d9;
+   font-family: 'Ubuntu Mono', monospace;
+    				height: 100vh;
+    				text-align: center;
+    				font-size: 10px;
+                line-height: 1em;
+    				margin: auto;
+            overflow: scroll;
+            
+                    }
+                    body::selection {
+                        background-color: rgb(0, 0, 0);
+                        color: #ffffff;
+                        }
+    .menu {
+    				display: none;
+                
+    				}
+   .hide {
+   				display: none;
+               transition: 100ms ease;
+   				}
+   		a {
+   						text-decoration: none;
+   						color: #F5F8FA;
+   						background-color: #761df2;
+   						padding: 5px 20px;
+   						border-radius: 25px;
+   						transition: 100ms linear;
+                     margin-bottom: 2em;
+   						}
+   			a:hover {
+   							
+               
+               background-color: #842bff;
+               border: 0px solid #761df2;
+               
+   							}
+.content {
+  width: 100%;
+  height: 60%;
+  
+  position: absolute;
+  top: 5%;
+
+}
+::selection {
+    background: #000000; /* WebKit/Blink Browsers */
+    color: white;
+    
+}
+::-moz-selection {
+    background: #000000; /* Gecko Browsers */
+    color: white;
+}
+
+
+
+.cd {
+   font-size: 3em;
+   top: 10%;
+}
+
+
+a {
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+  .dark-mode {
+      
+        background: black;
+        filter: invert(1); /* This will flip the contents on the page, from black to its inverted color*/
+ }
+    
+  
+ @media screen and (min-width: 601px) {
+    .content {
+      font-size: 15px;
+    }
+    .twitter-timeline .tweet {
+      width: 70vw !important;
+  }
+   }
+
+a.ig-footer {
+   font-size: 10px;
+   color: black;
+   background: transparent;
+   border: 0px solid black;
+   border-radius: 0;
+   text-decoration: none;
+   padding: 5px 30px;
+   transition: 140ms ease;
+}
+a.ig-footer:hover {
+   padding: 5px 40px;
+   border: 1px solid black;
+   transition: 140ms ease;
+   }
+
+
+#noselect {
+   user-select: none;
+}
+#wm {
+   font-size: 14px;
+   mix-blend-mode: difference;
+   
+}
+
+:focus {
+   outline: none !important;
+}
+
+/* basic modern patch */
+
+#reset-this-root {
+   all: initial;
+   * {
+       all: unset;
+   }
+}
+
+a.tweet .twt blockquote {
+   text-decoration: none;
+   color: #fff;
+   background: transparent;
+   padding: 0;
+   border-radius: 0;
+   margin-bottom: 0;
+   }
+   
+
+
+.tweet {
+   margin-bottom: 2em;
+}
+.twitter-timeline {
+   line-height: 2rem;
+   margin-top: 5rem;
+}
