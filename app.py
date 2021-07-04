@@ -5,12 +5,12 @@ from dropbox import Dropbox
 import dropbox
 import numpy as np
 import jyserver.Flask as jsf
+from latestt import id_tweet
 from flask import jsonify, request
 from flask import Flask, render_template, url_for, redirect
 from threading import Thread
 from datetime import datetime, time, timedelta
 from time import sleep
-from latestt import tL, tLink, id_tweet, screen_name, fnumber
 import os, tweepy, time, math, sys, io, glob, signal
 
 
