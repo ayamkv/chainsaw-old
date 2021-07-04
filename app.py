@@ -301,8 +301,6 @@ if __name__ == '__main__':
         flask_m.append(t)
         t.start()
         
-    for t in flask_m:
-        t.join()
     while True:
         everything()
         print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
