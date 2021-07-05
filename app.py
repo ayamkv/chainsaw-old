@@ -262,8 +262,8 @@ future_date = str(current_date + hours_added)
 ftur = current_date + hours_added
 fturs = ftur.strftime("%H:%M:%S || %d %B, %Y")
 fturjson = ftur.strftime("%B %d, %Y %H:%M:%S")
-print('Today : ' , current_date.strftime("%d %B, %Y '-' %H:%M:%S"))
-req = datetime.strptime(future_date, '%Y-%m-%d %H:%M:%S.%f')
+print('Today : ', current_date.strftime("%d %B, %Y '-' %H:%M:%S"))
+req = datetime.strptime(future_date, '%Y-%m-%d %H:%M:%S.%f%z')
 now = datetime.now(wib_tz)
 
 
