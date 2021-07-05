@@ -266,19 +266,39 @@ print('Today : ', current_date.strftime("%d %B, %Y '-' %H:%M:%S"))
 req = datetime.strptime(future_date, '%Y-%m-%d %H:%M:%S.%f%z')
 now = datetime.now(wib_tz)
 
-
-def sleepcd(now):
+def countdown_sleep(t):
     print('\n' + fturs)
-    while req>now:
-        cdp = " %d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
-        sleep(1)
-        now = datetime.now(wib_tz)
-        cds = str(cdp)   # print('\n ' + ftur.strftime, end="\r", flush=True)
-        print( '>  ' + cds, end="\r", flush=True)
+    while t:
+        m, s = divmod(t, 60)
+        h, m = divmod(m, 60)
+        timeformat = '{:d} Hour :{:02d} Minute :{:02d} Sec'.format(h, m, s)
+        print(timeformat, end='\r')
+        time.sleep(5)
+        t -= 5
+        
+    print('Timer Doneeee!\n\n\n\n\n')
 
-        sleep(1)
 
+  
 
+    
+    # while req>now:
+    #     sleep(1)
+    #     cdp = " %d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
+    #     sleep(1)
+    #     now = datetime.now(wib_tz)
+    #     cds = str(cdp)   # print('\n ' + ftur.strftime, end="\r", flush=True)
+    #     print( '>  ' + cds, end="\r", flush=True)
+
+    #     sleep(1)
+    
+def convert_sec(hour):
+   hour = hour * 3600
+
+   return hour
+ 
+sleep_value = convert_sec(6)
+print(sleep_value)
 # @app.route('/id')
 # def tweet():
 #     id = {'id':id_tweet}
@@ -288,11 +308,10 @@ def sleepcd(now):
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     while True:
-        everything()
 
         print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
-        sleepcd(now)
-        sleep(3000)
+        
+        countdown_sleep(sleep_value)
         print('\n')
         # 7 Hours
         print(20 * '=')
