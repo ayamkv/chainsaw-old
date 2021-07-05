@@ -1,13 +1,9 @@
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageEnhance, ImageFilter
 from keys import *
 from dropbox import Dropbox
 import dropbox
 import numpy as np
-import jyserver.Flask as jsf
-from flask import jsonify, request
-from flask import Flask, render_template, url_for, redirect
-from threading import Thread
 from datetime import datetime, time, timedelta
 from time import sleep
 import os, tweepy, time, math, sys, io, glob, signal
@@ -115,7 +111,7 @@ def job():
     # file = f"{n_counter}.png"
     file_from = f"/csm/images/{n_counter}.png"
     file_to = f'images/{n_counter}.png'
-
+    
     print(10 * '_' + '[=JOB STARTED=]' + 10 * '_' )
     print('\n[::] now on frame : ' + the)
     print(file_from)
@@ -133,10 +129,29 @@ def job():
     print(rzd)
     image_cpath = Path('./images/{}r.jpg'.format(n_counter))
     
+    outputpath = ('./images/{}r.jpg'.format(n_counter))
+    def BlurrBanner():
+        imBlur = image_c.filter(ImageFilter.GaussianBlur(7))
+        imBlur.save(outputpath)
+        print('Blurred', end='\r')
 
+
+    def textBanner():
+        sleep(3)
+        image_ppath = Image.open(image_cpath)
+        overlay = Image.open(r'./images/overlay/overlay.png')
+        image_ppath.paste(overlay, (0, 0), overlay)
+        image_ppath.save(outputpath)
+        # imBright.enhance(factorBright).save(outputpath,'PNG')
+        print('Texted', end='\r')
+    sleep(3)
+    BlurrBanner()
+    textBanner()
+    
     def compress_image(im, filename, target):
         """Save the image as JPEG with the given name at best quality that makes less than "target" bytes"""
         # Min and Max quality
+        
         Qmin, Qmax = 25, 96
         # Highest acceptable quality found
         Qacc = -1
@@ -153,6 +168,7 @@ def job():
                 Qmin = m + 1
             elif s > target:
                 Qmax = m - 1
+            
         # Write to disk at the defined quality
         if Qacc > -1:
             im.save(filename, format="JPEG", quality=Qacc)
@@ -161,8 +177,9 @@ def job():
             image_cpath = image_path
             print(image_cpath)
             print('Using original image since its not working')
-    im = Image.open(image_path)
-    compress_image(im, "./images/{}r.jpg".format(n_counter), 100000)    
+    im = Image.open(image_cpath)
+    compress_image(im, "./images/{}rr.jpg".format(n_counter), 100000)
+    img_banner = Path('./images/{}rr.jpg'.format(n_counter))
     print('[~] Compress done')
     
 
@@ -178,7 +195,7 @@ def job():
         print('This is your tweet :\n\n' + tweet) 
         print('\n[>>] Next Frame : {}'.format(next_counter))
         time.sleep(1)
-        api.update_profile_banner(image_cpath)
+        api.update_profile_banner(img_banner)
         print('[<>] Image Banner Updated')
         # os.startfile(image_cpath)
         
@@ -209,7 +226,7 @@ print('---- Running Job ----- ')
 
 def looping():
     print('-- Looping range 5 / im inside looping -- ')
-    for _ in range(5):
+    for _ in range(2):
         # get_var_value() 
         sleep(2)
         print ("Authenticated as: %s" % api.me().screen_name) 
@@ -279,8 +296,8 @@ def sleepcd(now):
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     while True:
-        # everything()
-        print('STuff')
+        everything()
+
         print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
         sleepcd(now)
         sleep(10)
