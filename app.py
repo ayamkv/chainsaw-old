@@ -5,7 +5,6 @@ from dropbox import Dropbox
 import dropbox
 import numpy as np
 import jyserver.Flask as jsf
-from latestt import id_tweet
 from flask import jsonify, request
 from flask import Flask, render_template, url_for, redirect
 from threading import Thread
@@ -228,8 +227,6 @@ def everything():
     print(3 * '\n')
     print(10 * '-')
 
-
-
 def dateDiffInSeconds(date1, date2):
     timedelta = date2 - date1
     return timedelta.days * 24 * 3600 + timedelta.seconds
@@ -241,15 +238,15 @@ def daysHoursMinutesSecondsFromSeconds(seconds):
     return (hours, minutes, seconds)
 
 current_date = datetime.now()
-hours = 7
+hours = 6
 hours_added = timedelta(hours = hours)
 future_date = str(current_date + hours_added)
 ftur = current_date + hours_added
 fturs = ftur.strftime("%H:%M:%S || %d %B, %Y")
+fturjson = ftur.strftime("%B %d, %Y %H:%M:%S")
 print('Today : ' , current_date.strftime("%d %B, %Y '-' %H:%M:%S"))
 req = datetime.strptime(future_date, '%Y-%m-%d %H:%M:%S.%f')
 now = datetime.now()
-
 
 
 def sleepcd(now):
@@ -258,56 +255,35 @@ def sleepcd(now):
         cdp = " %d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
         sleep(1)
         now = datetime.now()
-        cds = str(cdp)
-        # print('\n ' + ftur.strftime, end="\r", flush=True)
+        cds = str(cdp)   # print('\n ' + ftur.strftime, end="\r", flush=True)
         print( '>  ' + cds, end="\r", flush=True)
-        sleep(15)
+
+        sleep(1)
 
 
 
-app = Flask(__name__)
 
 
-@app.route('/')
-def home():
-    redir = request.base_url + 'cd'
-    return redirect(redir, code=302)
 
-@app.route('/id')
-def tweet():
-    id = {'id':id_tweet}
-    return jsonify(id)
-@app.route('/cd')
-def sleepcdflask():
-    now = datetime.now()
-    cdp = "%d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
-    sleep(1)
-    now = datetime.now()
-    time = {'time':cdp}
-    # print('\n ' + ftur.strftime, end="\r", flush=True)
-    return jsonify(time)
-        
-def run():
-    PORT = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+# @app.route('/id')
+# def tweet():
+#     id = {'id':id_tweet}
+#     return jsonify(id)
+
+
+
+
 
 
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
-    flask_m = []
-    def keep_alive():
-        t = Thread(target=app.run)
-        flask_m.append(t)
-        t.start()
-        
     while True:
-        everything()
+        # everything()
+        print('STuff')
         print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
-        current_date = datetime.now()
-        keep_alive()
-        sleep(1)
         sleepcd(now)
+        sleep(10)
         print('\n')
         # 7 Hours
         print(20 * '=')

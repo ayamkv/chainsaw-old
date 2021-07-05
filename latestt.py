@@ -33,6 +33,3 @@ def get_last_tweet_id(api):
     
 
 id_tweet = get_last_tweet_id(api)
-print(fnumber)
-
-
