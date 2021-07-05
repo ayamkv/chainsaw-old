@@ -7,8 +7,9 @@ import numpy as np
 from datetime import datetime, time, timedelta
 from time import sleep
 import os, tweepy, time, math, sys, io, glob, signal
+import pytz
 
-
+wib_tz = pytz.timezone('Asia/Jakarta')
 file_from_v = 'current.dat'
 file_to_v = '/csm/current.dat'
 
@@ -225,8 +226,8 @@ def delete_files():
 print('---- Running Job ----- ')
 
 def looping():
-    print('-- Looping range 5 / im inside looping -- ')
-    for _ in range(5):
+    print('-- Looping range 3 / im inside looping -- ')
+    for _ in range(3):
         # get_var_value() 
         sleep(2)
         print ("Authenticated as: %s" % api.me().screen_name) 
@@ -254,7 +255,7 @@ def daysHoursMinutesSecondsFromSeconds(seconds):
 
     return (hours, minutes, seconds)
 
-current_date = datetime.now()
+current_date = datetime.now(wib_tz)
 hours = 6
 hours_added = timedelta(hours = hours)
 future_date = str(current_date + hours_added)
@@ -263,7 +264,7 @@ fturs = ftur.strftime("%H:%M:%S || %d %B, %Y")
 fturjson = ftur.strftime("%B %d, %Y %H:%M:%S")
 print('Today : ' , current_date.strftime("%d %B, %Y '-' %H:%M:%S"))
 req = datetime.strptime(future_date, '%Y-%m-%d %H:%M:%S.%f')
-now = datetime.now()
+now = datetime.now(wib_tz)
 
 
 def sleepcd(now):
@@ -271,7 +272,7 @@ def sleepcd(now):
     while req>now:
         cdp = " %d Hours %d Minutes %d Seconds" % daysHoursMinutesSecondsFromSeconds(dateDiffInSeconds(now, req))
         sleep(1)
-        now = datetime.now()
+        now = datetime.now(wib_tz)
         cds = str(cdp)   # print('\n ' + ftur.strftime, end="\r", flush=True)
         print( '>  ' + cds, end="\r", flush=True)
 
