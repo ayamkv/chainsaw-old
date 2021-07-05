@@ -308,7 +308,7 @@ print(sleep_value)
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     while True:
-
+        everything()
         print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
         
         countdown_sleep(sleep_value)
