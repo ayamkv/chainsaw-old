@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for
 from threading import Thread
-from latest import tL, tLink
+from latestt import tL, tLink
 import os
 
 def get_var_value(filename="current.dat"):
