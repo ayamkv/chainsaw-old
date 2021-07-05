@@ -8,6 +8,3 @@ api = tweepy.API(auth)
 print('Auth success')
 print ("Authenticated as: %s" % api.me().screen_name)   
 
-msg = '[ #CSM866 #CSM867 ] Im moving the #ChainsawManFrames Tweet at this account \n\n:: @fidenjii'
-api.update_status(msg)
-print('Tweeted')
