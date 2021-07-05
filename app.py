@@ -278,19 +278,10 @@ def sleepcd(now):
         sleep(1)
 
 
-
-
-
-
 # @app.route('/id')
 # def tweet():
 #     id = {'id':id_tweet}
 #     return jsonify(id)
-
-
-
-
-
 
 
 if __name__ == '__main__':
@@ -300,7 +291,7 @@ if __name__ == '__main__':
 
         print('\n[[]-[]] Im sleeping  :D Waiting for the next time im runnin : \n')
         sleepcd(now)
-        sleep(10)
+        sleep(3000)
         print('\n')
         # 7 Hours
         print(20 * '=')
