@@ -226,7 +226,7 @@ print('---- Running Job ----- ')
 
 def looping():
     print('-- Looping range 5 / im inside looping -- ')
-    for _ in range(2):
+    for _ in range(5):
         # get_var_value() 
         sleep(2)
         print ("Authenticated as: %s" % api.me().screen_name) 
