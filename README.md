@@ -1,5 +1,6 @@
 # chainsaw tweets
-<object> https://img.shields.io/badge/deprecated-discontinued-red
+![image]({https://img.shields.io/badge/deprecated-discontinued-red})
+
 it's a python program that posts a frame (images) from 
 chainsaw man pv in order every 6-7 hours
 
