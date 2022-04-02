@@ -1,5 +1,6 @@
 # chainsaw tweets
-it's a python program that posts a frame(images) from 
+<object> https://img.shields.io/badge/deprecated-discontinued-red
+it's a python program that posts a frame (images) from 
 chainsaw man pv in order every 6-7 hours
 
 ## Storage
@@ -20,3 +21,5 @@ to keep on track/in order i use 'current.dat' to count every single time
 after it uploads, the file is in dropbox so it needs to download 'current.dat' 
 and edit(update) it with incremental +1 and upload it to dropbox.
 it's used to know we're we are at the moment too.
+
+*the only main files are app.py other .py app is just me practicing before i implement it.
