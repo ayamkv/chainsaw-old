@@ -1,10 +1,18 @@
+# WARNING
+## ! ⛔️ DEPRECATED 
+<img src="https://img.shields.io/badge/no_maintenance_intended-inactive"/>
+This is <b>no longer supported</b> , 
+although a full rewrite will come, still unsure when.
+
+# 
+#
 # Chainsaw
 <img src="https://img.shields.io/badge/deprecated-discontinued-inactive"/>
 
 It's a python script that posts a frame (images) from 
 chainsaw man pv in order every 6-7 hours
 
-## 📦 Storage
+### 📦 Storage
 
 The image files are huge, so i decided to upload them on **dropbox** 
 > since they have an easier api to implement , i think
@@ -12,14 +20,14 @@ The image files are huge, so i decided to upload them on **dropbox**
 using dropbox api we can download the image, and then delete the image when we're done.
 so that's how it will _bypass_ **heroku**'s storage limit.
  
-## 🖼️ Banner
+### 🖼️ Banner
 there's another feature which is to change the twitter banner
 everytime it posts a frame, it would have a background of the current frame blurred
 and the logo of chainsaw man. I'm using PIL for the blurred frame and overlay the logo 
 on top.
 
 
-## ⏳ Keep On Track
+### ⏳ Keep On Track
 
 for now, to keep on track/in order i use `current.dat` to count every single time
 after it uploads, the file is in dropbox so it needs to download `current.dat`
